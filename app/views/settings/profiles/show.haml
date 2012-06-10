@@ -13,17 +13,8 @@
           = link_to t('.go_to_gravatar'), 'http://www.gravatar.com', :rel => 'external'
     .control-group
       .control-label
-        = f.label :name
+        = f.label :true_name
       .controls
-        = f.text_field :name, :class => 'span3'
-    .control-group
-      .control-label
-        = f.label :url
-      .controls
-        = f.text_field :url, :class => 'span3'
-    .control-group
-      .control-label
-        = f.label :description
-      .controls
-        = f.text_area :description, :rows => 5, :class => 'span6'
+        = f.text_field :true_name, :class => 'span3'
+
     = f.submit t('save'), :class => 'btn primary'

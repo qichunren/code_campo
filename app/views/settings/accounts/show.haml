@@ -2,24 +2,11 @@
   %h3= t '.account_settings'
 = form_for current_user, :url => settings_account_path, :validate => true do |f|
   %fieldset
-    .control-group
-      .control-label
-        = f.label :name
-      .controls
-        = f.text_field :name, :class => 'span3'
-    .control-group
-      .control-label
-        = f.label :email
-      .controls
-        = f.text_field :email, :class => 'span3'
+
     .control-group
       .control-label
         = f.label :locale
       .controls
         = f.select :locale, AllowLocale.map{|locale| [t(locale), locale]}, {}, :class => 'span3'
-    .control-group
-      .control-label
-        = f.label :current_password
-      .controls
-        = f.password_field :current_password, :class => 'span3'
+
     = f.submit t('save'), :class => 'btn primary'

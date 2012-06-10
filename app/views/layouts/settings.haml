@@ -20,7 +20,6 @@
             = render :partial => 'shared/sidebar_profile'
             %ul#settings-nav.nav.nav-tabs.nav-stacked
               %li{:class => (controller_name == 'accounts' ? 'active' : nil)}= link_to t('.account'), settings_account_path
-              %li{:class => (controller_name == 'passwords' ? 'active' : nil)}= link_to t('.password'), settings_password_path
               %li{:class => (controller_name == 'profiles' ? 'active' : nil)}= link_to t('.profile'), settings_profile_path
           #mainbar.span9
             %section#settings.box

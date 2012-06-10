@@ -1,7 +1,8 @@
 class Profile
   include Mongoid::Document
 
-  field :name
+  field :name # from github user profile
+  field :true_name # set from local, not from github user profile
   field :url
   field :description
   field :company
@@ -14,5 +15,5 @@ class Profile
   validates :url, :length => {:maximum => 100}
   validates :description, :length => {:maximum => 300}
 
-  attr_accessible :name, :url, :description
+  attr_accessible :name, :true_name, :url, :description
 end

@@ -3,6 +3,7 @@ CodeCampo::Application.routes.draw do
 
   get 'signup' => 'users#new', :as => :signup
   get 'login' => 'user_sessions#new', :as => :login
+  match '/auth/:provider/callback', to: 'user_sessions#github_callback'
   delete 'logout' => 'user_sessions#destroy', :as => :logout
   resources :users, :only => [:create]
   resources :user_sessions, :only => [:create]

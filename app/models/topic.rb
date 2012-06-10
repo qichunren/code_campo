@@ -14,8 +14,8 @@ class Topic
   field :replier_ids,        :type => Array,   :default => []
   field :last_read_user_ids, :type => Array,   :default => []
 
-  belongs_to :user
-  belongs_to :last_reply_user, :class_name => 'User'
+  belongs_to :user, :class_name => 'GUser'
+  belongs_to :last_reply_user, :class_name => 'GUser'
   has_many   :replies, :dependent => :delete
 
   validates :title, :content, :user, :presence => true

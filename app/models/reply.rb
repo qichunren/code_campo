@@ -7,7 +7,7 @@ class Reply
   field :content
   field :mentioned_user_ids, :type => Array, :default => []
 
-  belongs_to :user
+  belongs_to :user, :class_name => "GUser"
   belongs_to :topic
   has_one :notification_topic_reply, :class_name => 'Notification::TopicReply', :dependent => :delete
 

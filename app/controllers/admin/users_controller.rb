@@ -2,7 +2,7 @@ class Admin::UsersController < Admin::BaseController
   before_filter :find_user, :except => :index
 
   def index
-    @users = User.order_by([:created_at, :desc]).page(params[:page])
+    @users = GUser.order_by([:created_at, :desc]).page(params[:page])
   end
 
   def show
@@ -19,7 +19,7 @@ class Admin::UsersController < Admin::BaseController
   protected
 
   def find_user
-    @user = User.first :conditions => {:name => /^#{params[:id]}$/i}
+    @user = GUser.first :conditions => {:name => /^#{params[:id]}$/i}
     raise Mongoid::Errors::DocumentNotFound.new(User, params[:id]) if @user.nil?
   end
 end

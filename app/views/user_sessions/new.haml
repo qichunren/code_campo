@@ -3,6 +3,8 @@
     .row
       .span4.offset4
         %section#login-form.box
+          = link_to "Login with github", "/auth/github/"
+        %section#login-form.box
           = form_tag user_sessions_path do
             %fieldset
               %legend= t 'login'

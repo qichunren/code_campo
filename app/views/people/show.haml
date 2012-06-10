@@ -13,8 +13,25 @@
                   %small= "@#{@person.name}"
                 - if @person.profile.description.present?
                   = simple_format @person.profile.description
-                - if @person.profile.url.present?
-                  = link_to @person.profile.url, @person.profile.url, :rel => 'external nofollow'
+                .vcard
+                  %dl
+                    %dt Github
+                    %dd= link_to @person.name, @person.github_url, :rel => 'external nofollow'
+                    %dl
+                      %dt Join github date
+                      %dd= format_time @person.profile.since_at
+                  - if @person.profile.url.present?
+                    %dl
+                      %dt URL
+                      %dd= link_to @person.profile.url, @person.profile.url, :rel => 'external nofollow'
+                  - if @person.profile.location.present?
+                    %dl
+                      %dt Location
+                      %dd= @person.profile.location
+                  - if @person.profile.company.present?
+                    %dl
+                      %dt Company
+                      %dd= @person.profile.company
           - if @person == current_user
             %footer
               = link_to t('.edit_profile'), settings_profile_path, :class => 'btn'
@@ -28,3 +45,5 @@
           %ul
             %li= t '.topics_count', :count => @topics_count
             %li= t '.replies_count', :count => @replies_count
+            %li= t '.repos_count', :count => @repos_count
+            %li= t '.followers_count', :count => @followers_count

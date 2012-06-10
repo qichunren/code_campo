@@ -5,6 +5,17 @@ class UserSessionsController < ApplicationController
     store_location request.referrer if request.referrer.present?
   end
 
+  def github_callback
+    user = GUser.from_oauth request.env['omniauth.auth']
+    if user
+      login_as user
+      redirect_back_or_default root_url
+    else
+      flash[:error] = 'Wrong login name or password'
+      redirect_to login_url
+    end
+  end
+
   def create
     login = /^#{params[:login]}$/i
     user = User.any_of({:name => login}, {:email => login}).first

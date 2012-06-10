@@ -8,7 +8,7 @@ class Notification::Base
 
   scope :unread, where(:read => false)
 
-  belongs_to :user
+  belongs_to :user, :class_name => "GUser"
 
   def anchor
     "notification-#{id}"

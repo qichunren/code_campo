@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= login_from_session || login_from_cookies unless defined?(@current_user)
+    @current_user ||= login_from_session unless defined?(@current_user)
     @current_user
   end
 
@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   def login_from_session
     if session[:user_id].present?
       begin
-        User.find session[:user_id]
+        GUser.find session[:user_id]
       rescue
         session[:user_id] = nil
       end

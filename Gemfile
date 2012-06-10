@@ -22,6 +22,8 @@ gem 'jquery-rails'
 gem 'highlight_js-rails'
 gem 'rails-timeago', :git => 'git://github.com/jgraichen/rails-timeago.git'
 
+gem "omniauth-github", "~> 1.0.1"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

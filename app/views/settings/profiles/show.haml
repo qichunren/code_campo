@@ -8,9 +8,29 @@
       .controls
         .avatar= image_tag current_user.gravatar_url(:size => 160)
         %p
-          = link_to t('.change_email'), settings_account_path
-          = '/'
-          = link_to t('.go_to_gravatar'), 'http://www.gravatar.com', :rel => 'external'
+          = link_to t('.go_to_gravatar_to_edit'), 'http://www.gravatar.com', :rel => 'external'
+
+    .control-group
+      %strong Email
+      = current_user.email
+    .control-group
+      %strong Nick name
+      = current_user.profile.name
+    .control-group
+      %strong Location
+      = current_user.profile.location
+    .control-group
+      %strong Person URL
+      = current_user.profile.url
+    .control-group
+      %strong Company
+      = current_user.profile.company
+    .control-group
+      %strong Bio
+      = current_user.profile.description
+    .control-group
+      = link_to "Go to github to edit your above info", "https://github.com"
+
     .control-group
       .control-label
         = f.label :true_name

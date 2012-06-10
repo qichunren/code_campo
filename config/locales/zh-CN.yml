@@ -94,7 +94,7 @@ zh-CN:
         profile_settings: "个人资料设置"
         using_gravatar: "使用 Gravatar"
         change_email: "修改邮箱"
-        go_to_gravatar: "到 Gravatar"
+        go_to_gravatar_to_edit: "到 Gravatar 修改头像"
   notifications:
     notification:
       mention:

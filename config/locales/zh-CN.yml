@@ -239,6 +239,8 @@ zh-CN:
         current_password: "当前密码"
       profile:
         name: "名称"
+        true_name: "真实姓名"
+        stackoverflow_url: "Stack Overflow个人页面"
         avatar: "头像"
         url: "网站"
         description: "描述"

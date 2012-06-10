@@ -15,6 +15,12 @@
       .control-label
         = f.label :true_name
       .controls
-        = f.text_field :true_name, :class => 'span3'
+        = f.text_field :true_name, :class => 'span2'
+
+    .control-group
+      .control-label
+        = f.label :stackoverflow_url
+      .controls
+        = f.text_field :stackoverflow_url, :class => 'span4'
 
     = f.submit t('save'), :class => 'btn primary'

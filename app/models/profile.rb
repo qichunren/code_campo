@@ -3,6 +3,7 @@ class Profile
 
   field :name # from github user profile
   field :true_name # set from local, not from github user profile
+  field :stackoverflow_url # set from local
   field :url
   field :description
   field :company
@@ -15,5 +16,5 @@ class Profile
   validates :url, :length => {:maximum => 100}
   validates :description, :length => {:maximum => 300}
 
-  attr_accessible :name, :true_name, :url, :description
+  attr_accessible :name, :true_name, :stackoverflow_url, :url, :description
 end

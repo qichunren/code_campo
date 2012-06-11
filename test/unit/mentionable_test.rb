@@ -5,7 +5,7 @@ class MentionableTest < ActiveSupport::TestCase
     include Mongoid::Document
     include Mentionable
 
-    belongs_to :user
+    belongs_to :user, :class_name => "GUser"
     field :content
   end
 

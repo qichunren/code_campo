@@ -9,7 +9,7 @@ module Mentionable
   end
 
   def mentioned_users
-    User.where(:_id.in => mentioned_user_ids)
+    GUser.where(:_id.in => mentioned_user_ids)
   end
 
   def mentioned_user_names
@@ -19,7 +19,7 @@ module Mentionable
   def extract_mentioned_users
     names = content.scan(/@(\w{3,20})(?![.\w])/).flatten
     if names.any?
-      self.mentioned_user_ids = User.where(:name => /^(#{names.join('|')})$/i).limit(5).only(:_id).map(&:_id).to_a
+      self.mentioned_user_ids = GUser.where(:name => /^(#{names.join('|')})$/i).limit(5).only(:_id).map(&:_id).to_a
     end
   end
 

@@ -37,6 +37,15 @@ gem 'whenever', :require => false
 gem 'capistrano', :require => false
 gem 'rvm-capistrano', :require => false
 
+group :development do
+  gem "foreman"
+  gem "guard"
+  gem "guard-bundler", :git => "https://github.com/josin/guard-bundler.git", :ref => "e8f9e4bc0e9b798d17ffee3f0d5170e33eadf2a5"
+  gem 'guard-test'
+  gem 'growl' if RUBY_PLATFORM.include?("darwin")
+end
+
 group :test, :development do
   gem 'factory_girl_rails'
+  gem "ruby-prof"
 end

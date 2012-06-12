@@ -1,5 +1,6 @@
 CodeCampo::Application.routes.draw do
   root :to => 'homepage#index'
+  get 'dashboard' => 'homepage#dashboard'
 
   get 'signup' => 'users#new', :as => :signup
   get 'login' => 'user_sessions#new', :as => :login

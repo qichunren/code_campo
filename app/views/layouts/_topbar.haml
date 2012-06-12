@@ -20,6 +20,7 @@
         = link_to t('.search'), search_path
     %ul.nav.nav-pills.pull-right
       - if logined?
+        %li=link_to "Dashboard", "/dashboard"
         %li.dropdown
           %a{:href => person_path(:name => current_user), :class => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'data-target' => '#'}
             = current_user.name

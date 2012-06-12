@@ -273,6 +273,14 @@ section {
 #main {
 }
 
+#login-form h2 {
+  margin-bottom: 20px;
+}
+.github_login {
+   background: url(image_path("github_icon.png")) no-repeat;
+   padding-left: 20px;
+}
+
 #sidebar {
   section {
     padding: 10px;

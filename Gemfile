@@ -33,6 +33,8 @@ group :assets do
   gem 'therubyracer'
 end
 
+gem "resque"
+
 gem 'whenever', :require => false
 gem 'capistrano', :require => false
 gem 'rvm-capistrano', :require => false
@@ -47,5 +49,4 @@ end
 
 group :test, :development do
   gem 'factory_girl_rails'
-  gem "ruby-prof"
 end

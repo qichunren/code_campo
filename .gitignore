@@ -9,3 +9,4 @@ config/mongoid.yml
 config/app_config.yml
 public/assets
 .env_var
+dump.rdb

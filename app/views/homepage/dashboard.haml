@@ -1,0 +1,9 @@
+#main
+  .container
+    .row
+      #mainbar.span9
+        %section.box
+          = render :partial => 'user', :collection => @following
+        %section.box
+          = @events.count
+          = render :partial => 'event', :collection => @events.to_a

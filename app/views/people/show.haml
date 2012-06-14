@@ -9,26 +9,25 @@
                 = image_tag @person.gravatar_url(:size => 128)
               .info
                 %h1
-                  = @person.profile.name.present? ? @person.profile.name : @person.name
+                  = show_person_name(@person)
                   %small= "@#{@person.name}"
-                - if @person.profile.description.present?
-                  = simple_format @person.profile.description
+                  = show_bio(@person)
                 .vcard
                   %dl
                     %dt Github
                     %dd= link_to @person.name, @person.github_url, :rel => 'external nofollow'
                     %dl
                       %dt Join github date
-                      %dd= format_time @person.profile.since_at
-                  - if @person.profile.url.present?
+                      %dd= format_time @person.try(:profile).try(:since_at)
+                  - if @person.profile && @person.profile.url.present?
                     %dl
                       %dt URL
                       %dd= link_to @person.profile.url, @person.profile.url, :rel => 'external nofollow'
-                  - if @person.profile.location.present?
+                  - if @person.profile && @person.profile.location.present?
                     %dl
                       %dt Location
                       %dd= @person.profile.location
-                  - if @person.profile.company.present?
+                  - if @person.profile && @person.profile.company.present?
                     %dl
                       %dt Company
                       %dd= @person.profile.company

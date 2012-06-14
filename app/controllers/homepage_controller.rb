@@ -8,6 +8,7 @@ class HomepageController < ApplicationController
   end
 
   def dashboard
-
+    @following = current_user.following.desc("github_followers_count")
+    @events = Event.watch_event.all.to_a
   end
 end

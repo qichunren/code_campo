@@ -1,0 +1,6 @@
+%li
+  = image_tag(event.actor_avatar_url, :width => 28, :height => 28)
+  = link_to(event.actor, event.actor_url)
+  关注
+  = link_to(event['body']['repo']['name'], event['body']['repo']['url'])
+  = event.created_at

@@ -13,10 +13,10 @@ class Profile
 
   embedded_in :user, :class_name => "GUser"
 
-  validates :name, :length => {:in => 3..20, :allow_blank => true}
-  validates :url, :length => {:maximum => 100}
-  validates :description, :length => {:maximum => 300}
+  #validates :name, :length => {:in => 3..20, :allow_blank => true}
+  #validates :url, :length => {:maximum => 100}
+  #validates :description, :length => {:maximum => 300}
 
-  attr_accessible :name, :true_name, :stackoverflow_url, :url, :description
+  attr_accessible :name, :true_name, :stackoverflow_url, :url, :description, :since_at
 
 end

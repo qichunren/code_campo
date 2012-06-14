@@ -14,7 +14,7 @@ CodeCampo::Application.routes.draw do
 
   resource :search, :controller => 'search', :only => 'show'
 
-  get '~:name', :controller => 'people', :action => 'show', :as => :person
+  get '/u/:name', :controller => 'people', :action => 'show', :as => :person
   resources :notifications, :only => [:index, :destroy] do
     collection do
       put :mark_all_as_read

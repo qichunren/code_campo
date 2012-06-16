@@ -4,6 +4,7 @@ class Profile
   field :name # from github user profile
   field :true_name # set from local, not from github user profile
   field :stackoverflow_url # set from local
+  field :private_atom_token # fetch personal rss
   # stackoverflow user feed url: http://stackoverflow.com/feeds/user/258187
   field :url
   field :description
@@ -17,6 +18,8 @@ class Profile
   #validates :url, :length => {:maximum => 100}
   #validates :description, :length => {:maximum => 300}
 
-  attr_accessible :name, :true_name, :stackoverflow_url, :url, :description, :since_at
+  attr_accessible :name, :true_name, :stackoverflow_url, :url, :description, :since_at, :private_atom_token
+
+
 
 end

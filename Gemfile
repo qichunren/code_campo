@@ -34,6 +34,8 @@ group :assets do
 end
 
 gem "resque"
+gem "resque-loner"
+gem "xml-simple", :require => "xmlsimple"
 
 gem 'whenever', :require => false
 gem 'capistrano', :require => false

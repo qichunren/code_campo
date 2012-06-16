@@ -21,3 +21,16 @@
 every 1.day do
   runner "Tag.recount"
 end
+
+every 15.minutes do
+  rake "fetch_events"
+end
+
+every 20.minutes do
+  rake "sync_users"
+end
+
+
+every 1.day do
+  rake "mark_chinese_user"
+end

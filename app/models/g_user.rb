@@ -5,6 +5,7 @@ class GUser
   include Mongoid::Document
   include Mongoid::NumberId
   field :name
+  validates :name, :presence => true, :uniqueness => true
   field :email
   field :github_uid
   field :github_utype
@@ -26,6 +27,34 @@ class GUser
 
 
   field :locale, :default => I18n.locale.to_s
+  field :country
+  scope :chinese, where(:country => "China")
+  # github上的中国用户，根据location来判断的
+
+  scope :chinese_by_location, where(:'profile.location'.in => [
+                                                        /china/i,
+                                                        /taiwan/i,
+                                                        /shanghai/i,
+                                                        /beijing/i,
+                                                        /suzhou/i,
+                                                        /nanjing/i,
+                                                        /dalian/i,
+                                                        /chongqing/i,
+                                                        /wuhan/i,
+                                                        /guangzhou/i,
+                                                        /shenzhen/i,
+                                                        /hangzhou/i,
+                                                        /tianjin/i,
+                                                        /上海/,
+                                                        /北京/,
+                                                        /杭州/,
+                                                        /中国/,
+                                                        /kunming/])
+
+
+  def self.make_chines_githubors!
+    self.chinese_by_location.where(:country.ne => "China").update_all(:country => "China")
+  end
 
   has_many :notifications, :class_name => 'Notification::Base', :dependent => :delete, :foreign_key => "user_id" do
     def has_unread?
@@ -35,6 +64,7 @@ class GUser
 
   has_many :topics, :dependent => :destroy, :foreign_key => "user_id"
   has_many :replies, :dependent => :destroy, :foreign_key => "user_id"
+  has_many :scribed_rsses, :foreign_key => "user_id"
   has_many :events
   embeds_one :profile
   # before_save :build_profile
@@ -66,25 +96,22 @@ class GUser
     "https://github.com/#{name.to_s}"
   end
 
+  include Resque::Plugins::UniqueJob
   @queue = :github_user_sync
   # TODO: 实现一个排队机制，如果已经在队列中，就不需要进队了
   def self.perform(github_login_id)
     a_guser = self.where(:name => github_login_id).first
     return if a_guser.nil?
-    # return if a_guser.sync_at && (Time.now-a_guser.sync_at) >= 1.days
+    return if a_guser.sync_at && (Time.now-a_guser.sync_at) <= 1.days
     a_guser.sync!
-    a_guser.sync_event!
   end
 
   def async_sync!
-    #if self.sync_at.nil? || (Time.now -self.sync_at) >= 1.days
-      Resque.enqueue(GUser, self.name)
-    #end
+    Resque.enqueue(GUser, self.name)
   end
 
   def sync!
-
-      parsed_json = ActiveSupport::JSON.decode(open("https://api.github.com/users/#{self.name}").read)
+    parsed_json = ActiveSupport::JSON.decode(open("https://api.github.com/users/#{self.name.to_s}").read)
 
     self.name = parsed_json["login"]
     self.email = parsed_json["email"]
@@ -113,9 +140,18 @@ class GUser
     (self.github_following_count/100+1).times do |page|
       following_json = ActiveSupport::JSON.decode(open("https://api.github.com/users/#{self.name}/following?page=#{page}&per_page=100").read)
       following_json.each do |user_hash|
-        user = GUser.where(:name => user_hash["login"]).first
-        user = GUser.create(:name => user_hash["login"]) if user.nil?
+        user = GUser.find_or_create_by(:name => user_hash['login'])
         self.follow!(user)
+        user.async_sync!
+      end
+    end
+
+    (self.github_followers_count).times do |page|
+      followers_json = ActiveSupport::JSON.decode(open("https://api.github.com/users/#{self.name}/followers?page=#{page}&per_page=100").read)
+      followers_json.each do |user_hash|
+        user = GUser.find_or_create_by(:name => user_hash["login"])
+        user.follow!(self)
+        user.async_sync!
       end
     end
 

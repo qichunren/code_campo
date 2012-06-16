@@ -7,15 +7,9 @@ class PeopleController < ApplicationController
     @replies_count = @person.replies.count
     @repos_count = @person.public_repos_count
     @followers_count = @person.github_followers_count
-
-    @person.sync_at = nil
-
-    key = @person.name.to_s + "_33sync"
-    #if cookies[key.to_sym].nil?
-      cookies[key.to_sym] = { :value => "true", :expires => 1.hours.from_now }
-      @person.async_sync! if @person.present?
-    #end
-
+    @following_count = @person.github_following_count
+    @followers = @person.followers
+    @person.async_sync!
   end
 
   protected

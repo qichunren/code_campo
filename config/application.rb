@@ -8,6 +8,8 @@ require "active_resource/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+require "open-uri"
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -55,7 +57,7 @@ module CodeCampo
     config.assets.precompile += %w(editor.js topics/show.js)
     config.assets.precompile += %w(editor.css search.css)
 
-    config.generators do |g|  
+    config.generators do |g|
       g.test_framework :test_unit, :fixture_replacement => :factory_girl
       g.assets false
       g.helper false

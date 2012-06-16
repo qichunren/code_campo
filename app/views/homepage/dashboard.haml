@@ -5,5 +5,12 @@
         %section.box
           = render :partial => 'user', :collection => @following
         %section.box
-          = @events.count
-          = render :partial => 'event', :collection => @events.to_a
+          %table.item-list
+            %tbody
+              - @rss.each do |r|
+                %tr
+                  %td.avatar= image_tag(r.actor_avatar_url)
+                  %td.content
+                    =link_to r.text, r.link
+                    %span.time
+                      = format_time r.created_at

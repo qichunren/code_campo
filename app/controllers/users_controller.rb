@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   before_filter :require_no_logined, :only => [:new, :create]
 
+  def index
+    @users = GUser.chinese.desc("github_followers_count").limit(100)
+    @activities = Activity.useful.desc("created_at").page(params[:page]).per(50)
+  end
+
   def new
     @user = User.new
     store_location request.referrer if request.referrer.present?

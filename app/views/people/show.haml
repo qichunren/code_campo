@@ -46,3 +46,11 @@
             %li= t '.replies_count', :count => @replies_count
             %li= t '.repos_count', :count => @repos_count
             %li= t '.followers_count', :count => @followers_count
+            %li= t '.following_count', :count => @following_count
+
+          %header
+            被他们关注
+          %ul
+            - @followers.each do |user|
+              = image_tag(user.avatar_url, :width => 48, :height => 48)
+              = link_to user.name, person_path(user)

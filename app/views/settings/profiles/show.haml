@@ -43,4 +43,10 @@
       .controls
         = f.text_field :stackoverflow_url, :class => 'span4'
 
+    .control-group
+      .control-label
+        = f.label :private_atom_token
+      .controls
+        = f.text_field :private_atom_token, :class => 'span4'
+
     = f.submit t('save'), :class => 'btn primary'

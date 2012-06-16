@@ -1,1 +1,30 @@
-= render :partial => 'user', :collection => @users
+#main
+  .container
+    .row
+      #mainbar.span6
+        %section.box
+          %table.item-list
+            %tbody
+              - @activities.each do |r|
+                %tr
+                  %td.avatar= link_to(image_tag(r.actor_avatar_url), "/u/#{r.actor}")
+                  %td.content
+                    =link_to r.text, r.link
+                    %span.time
+                      = format_time r.created_at
+      #sidebar.span3
+        %section.box
+          %ul
+            - GUser.desc("github_followers_count").limit(50).each do |user|
+              %li
+                = image_tag(user.avatar_url, :width => 38, :height => 38)
+                = link_to "#{user.name}(#{user.github_followers_count}/#{user.public_repos_count})", person_path(user), :target => "_blank"
+
+      #sidebar.span3
+        %section.box
+          = GUser.chinese.count
+          %ul
+            - @users.each do |user|
+              %li
+                = image_tag(user.avatar_url, :width => 38, :height => 38)
+                = link_to "#{user.name}(#{user.github_followers_count}/#{user.public_repos_count})", person_path(user), :target => "_blank"

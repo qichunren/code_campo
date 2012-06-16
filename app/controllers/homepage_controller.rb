@@ -9,6 +9,7 @@ class HomepageController < ApplicationController
 
   def dashboard
     @following = current_user.following.desc("github_followers_count")
-    @events = Event.watch_event.all.to_a
+    # @events = Event.watch_event.all.to_a
+    @rss = current_user.scribed_rsses.where(:_id => /WatchEvent/).desc("created_at")
   end
 end
